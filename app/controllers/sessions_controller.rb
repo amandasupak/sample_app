@@ -3,12 +3,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:sessions][:email].downcase)
-    if user && user.authenticate(params[:sessions][:password])
+    user = User.find_by(email: params[:session][:email].downcase)
+    if user && user.authenticate(params[:session][:password])
       #login the user and redirect to user's show page
     else
-      #create an error message
+      flash[:danger] = 'Invalid Login/Password Combination' #not final version
       render 'new', status: :unprocessable_entity
+    end
   end
     
   def destroy
