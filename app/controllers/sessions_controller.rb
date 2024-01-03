@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       #login the user and redirect to user's show page
     else
-      flash[:danger] = 'Invalid Login/Password Combination' #not final version
+      flash.now[:danger] = 'Invalid Login/Password Combination'
       render 'new', status: :unprocessable_entity
     end
   end

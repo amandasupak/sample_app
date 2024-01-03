@@ -8,7 +8,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     assert_template 'sessions/new'
     assert_not flash.empty?
-    get home_path
+    get root_path
     assert flash.empty?
   end
 end
