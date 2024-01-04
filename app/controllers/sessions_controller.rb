@@ -5,7 +5,9 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
-      #login the user and redirect to user's show page
+      reset_session
+      login_user
+      redirect_to user
     else
       flash.now[:danger] = 'Invalid Login/Password Combination'
       render 'new', status: :unprocessable_entity
