@@ -77,11 +77,3 @@ class LogoutTest < Logout
     assert_select "a[href=?]", user_path(@user),  count: 0 
   end
 end
-
-  
-
-
-  
-  
-  
-  
