@@ -15,6 +15,15 @@ class InvalidPasswordTest < UserLoginTest
   test "login with valid email/invalid password" do
     post login_path, params: { session: { email: @user.email,
                                         password: "invalid" } }
+    invalid_test
+  end
+
+  test "login with invalid email/password" do
+    post login_path params: { session:  { email: "", password: "" } }
+    invalid_test
+  end
+
+  def invalid_test
     assert_not is_logged_in?
     assert_response :unprocessable_entity
     assert_template 'sessions/new'
@@ -22,16 +31,6 @@ class InvalidPasswordTest < UserLoginTest
     get root_path
     assert flash.empty?
   end
-
-  test "login with invalid email/password" do
-    post login_path params: { session:  { email: "", password: "" } }
-    assert_response :unprocessable_entity
-    assert_template 'sessions/new'
-    assert_not flash.empty?
-    get root_path
-    assert flash.empty?
-  end
-
 end
 
 class ValidLogin < UserLoginTest
